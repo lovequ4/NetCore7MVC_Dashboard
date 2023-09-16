@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "ugZ94RbjoxQRoAzJqDnjo+nf5CjVQyY2DVzMfV2R7vpCZtPh61u4HTVRw0eWv9DpMVfQCiW8pOAC8MQzIAO+/Q==",
+  "dgSpecHash": "ihYvr1xaRNzD/Ndx7g5xKAUeK773gL0hC3Q55qUeNtEgRIvzWQkPe4hX56AwGZV0YHnihqRakjQ1LT6p1sLC8A==",
   "success": true,
   "projectFilePath": "/home/user/mynet/Dashboard/Dashboard.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/home/user/.nuget/packages/microsoft.extensions.logging.abstractions/6.0.0/microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",
+    "/home/user/.nuget/packages/npgsql/7.0.6/npgsql.7.0.6.nupkg.sha512"
+  ],
   "logs": []
 }
