@@ -1,4 +1,4 @@
-namespace dashboard.Models
+namespace Dashboard.Models
 {
     public class Product
     {
