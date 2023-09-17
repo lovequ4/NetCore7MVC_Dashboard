@@ -1,0 +1,135 @@
+@model Product
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Product";
+}
+
+<script>
+    function Cancelbutton() {
+        window.location.href = '@Url.Action("GetAllProduct", "Admin")';
+    }
+
+    function getCurrentTime() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        return `${hours}:${minutes}`;
+    }
+
+    // Set the input field value to the current time
+    document.addEventListener('DOMContentLoaded', function () {
+        const EditTimeInput = document.getElementById('EditTimeInput');
+        if (EditTimeInput) {
+            EditTimeInput.value = getCurrentTime();
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+        const day = currentDate.getDate().toString().padStart(2, '0');
+        const formattedDate = `${year}-${month}-${day}`;
+
+        const EditDateInput = document.getElementById('EditDateInput');
+        if (EditDateInput) {
+            EditDateInput.value = formattedDate;
+        }
+    });
+
+
+ // Handle the form submission
+    function handleFormSubmit(event) {
+        event.preventDefault();
+
+        const form = event.target;
+        const formData = new FormData(form);
+
+        // Emulate a PUT request using POST
+        formData.append("_method", "POST");
+
+        fetch(form.action, {
+            method: "POST",
+            body: formData,
+            headers: {
+                Accept: "application/json",
+            },
+        })
+        .then(response => {
+            if (response.status === 200) {
+                // Successful update, you can display a success message
+                alert("Product updated successfully");
+                window.location.href = '@Url.Action("GetAllProduct", "Admin")'; // Redirect to the product list page
+            } else {
+                // Update failed, handle the error
+                alert("Failed to update product");
+            }
+        })
+        .catch(error => {
+            // Handle any network or other errors
+            console.error("Error:", error);
+        });
+    }
+</script>
+
+
+
+<div class="container-fluid">
+    <div class="row cm-fix-hight">
+        <div class="col-sm-12">
+            <div class="panel panel-defaukt">
+                <div class="panel-body">
+                        <div class="col-sm-6 col-md-4 col-lg-3" style="margin: 40px auto; float: none;">
+                        <form asp-action="EditProduct" method="post" onsubmit="handleFormSubmit(event)">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-fw fa-user"></i></div>
+                                        <input asp-for="ProductName" class="form-control" placeholder="ProductName" required />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-fw fa-bookmark"></i></div>
+                                        <input asp-for="Brand"  class="form-control" placeholder="Brand" required />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-fw  fa-money"></i></div>
+                                        <input asp-for="Price"  class="form-control" placeholder="Price" required />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-fw fa-tags"></i></div>
+                                        <input asp-for="Quantity" class="form-control" placeholder="Quantity" required />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-fw fa-calendar"></i></div>
+                                        <input asp-for="EditDate" type="Date" class="form-control" id="EditDateInput" placeholder="EditDate" required readonly />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-fw fa-clock-o"></i></div>
+                                        <input asp-for="EditTime" type="time" class="form-control"  id="EditTimeInput" placeholder="EditTime" required readonly/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6"> 
+                                <button type="submit" class="btn btn-block btn-primary">Edit</button>
+                            </div>
+                            <div class="col-xs-6"> 
+                                <button type="button" class="btn btn-block btn-primary" onclick="Cancelbutton()">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+           </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,91 @@
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Index";
+}
+@* <script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.js"></script> *@
+<script src="~/assets/js/lib/d3.min.js"></script>
+<script src="~/assets/js/lib/c3.min.js"></script>
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.css">
+            
+        <title></title>
+    </head>
+    <body>
+        
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Product Quantity</div>
+                        <div class="panel-body">
+                            <div id="chart" style="height: 500px"></div>
+                        </div>
+                    </div>
+                </div>
+              
+            
+        <footer class="cm-footer"><span class="pull-left">Connected as John Smith</span><span class="pull-right">&copy; PAOMEDIA SARL</span></footer>
+        
+    <script>
+        var chartData = @Html.Raw(Json.Serialize(ViewBag.ChartData));
+        console.log(chartData);
+
+        // Extract product names and quantities from the chart data
+        var productNames = chartData.map(function(item) {
+            return item.item1;
+        });
+
+        var quantities = chartData.map(function(item) {
+            return item.item2;
+        });
+
+        var barColors = [
+            '#FF5733', // Color for iPhone 15 Pro Max
+            '#3399FF', // Color for test
+            '#FF33E6', // Color for Mac
+        ];
+               
+        var chart = c3.generate({
+        bindto: '#chart', // 確保HTML元素的ID為"chart"存在
+        data: {
+            x: 'x', // 使用'x'屬性作為X軸
+            columns: [
+                // 創建一個新的列以 'x' 作為標籤，產品名稱作為值
+                ['x'].concat(productNames),
+                // 創建一個新的列以 'Quantity' 作為標籤，數量作為值
+                ['Quantity'].concat(quantities),
+            ],
+            type: 'bar', // 選擇圖表類型（例如，柱狀圖、折線圖等）
+            colors: {
+            Quantity: function(d, i) {
+                // Use the predefined colors for each bar
+                return barColors[i];
+            }
+            },
+            color: function(color, d) {
+                // Set the color for each bar directly
+                return barColors[d.index];
+            },
+        },
+        axis: {
+            x: {
+                type: 'category', // 使用分類X軸
+                categories: productNames, // 指定X軸的類別
+            },
+        },
+        
+    });
+
+    </script>
+
+</body>
+</html>
+
