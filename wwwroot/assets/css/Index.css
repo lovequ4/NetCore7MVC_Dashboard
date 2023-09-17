@@ -1,0 +1,12 @@
+/* CSS Styles */
+.custom-color-1 {
+    fill: #FF5733; /* Your custom color for the first dataset */
+}
+
+.custom-color-2 {
+    fill: #33FF57; /* Your custom color for the second dataset */
+}
+
+.custom-color-3 {
+    fill: #5733FF; /* Your custom color for the third dataset */
+}
