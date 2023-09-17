@@ -1,7 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+using Dashboard.Context;
+using Dashboard.Service;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<AppDBContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Database"))
+     .EnableSensitiveDataLogging()
+    .LogTo(Console.WriteLine, LogLevel.Information)
+);
+
+builder.Services.AddScoped<PasswordService, PasswordService>();
 
 var app = builder.Build();
 
@@ -22,6 +34,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Auth}/{action=Login}/{id?}");
 
 app.Run();
