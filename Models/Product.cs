@@ -12,9 +12,13 @@ namespace Dashboard.Models
 
         public int Quantity { get; set; }
 
-        public DateTime PurchaseDate { get; set; } 
+        public DateOnly PurchaseDate { get; set; } 
 
-        public DateTime PurchaseTime { get; set; } 
+        public TimeOnly PurchaseTime { get; set; } 
+
+        public DateOnly EditDate { get; set; } 
+
+        public TimeOnly EditTime { get; set; } 
     }
     
 }
